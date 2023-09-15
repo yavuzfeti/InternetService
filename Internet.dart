@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:tester/main.dart';
 
+//final navKey = GlobalKey<NavigatorState>();
+//navigatorKey: navKey,
+//connectivity_plus: ^3.0.3
+//internet_connection_checker: ^1.0.0+1
+
+
 class Internet
 {
   static late StreamSubscription<ConnectivityResult> _dinleyici;
