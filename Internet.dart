@@ -2,13 +2,15 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:tester/main.dart';
+import 'package:kitx/Assets/Colors.dart';
+import 'package:kitx/main.dart';
 
 //final navKey = GlobalKey<NavigatorState>();
 //navigatorKey: navKey,
 //connectivity_plus: ^3.0.3
 //internet_connection_checker: ^1.0.0+1
-
+//Internet.gecBaslat(1500);
+//Internet.baslat();
 
 class Internet
 {
@@ -24,6 +26,11 @@ class Internet
   {
     internet = await InternetConnectionChecker().hasConnection;
     dialog(internet);
+  }
+
+  static void gecBaslat(int gecikme)
+  {
+    Future.delayed(Duration(milliseconds: gecikme),() {baslat();});
   }
 
   static void baslat()
@@ -42,16 +49,20 @@ class Internet
 
   static void durdur()
   {
-    _dinleyici?.cancel();
-    servis = false;
+    if(servis)
+    {
+      _dinleyici?.cancel();
+      servis = false;
+      dialogDurum = false;
+    }
   }
 
-  static void dialog(bool internet)
+  static void dialog(bool internet) async
   {
-    if(!internet)
+    if(!internet && !dialogDurum)
     {
       dialogDurum = true;
-      showDialog(
+      await showDialog(
           context: navKey.currentState!.context,
           barrierDismissible: false,
           builder: (BuildContext context)
@@ -71,12 +82,12 @@ class Internet
                     ),
                     Text(
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal,fontSize: 15),
-                        "Lütfen internet bağlantınızı kontrol edin.")
+                        style: TextStyle(color: Colors.white,fontSize: 15),
+                        "Lütfen internet bağlantınızı aktifleştirin")
                   ],
                 ),
               ),
-              backgroundColor: Colors.deepPurple,
+              backgroundColor: Colours.mainColor,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -87,9 +98,10 @@ class Internet
     }
     else
     {
-      if(dialogDurum)
+      if(dialogDurum && internet)
       {
         Navigator.of(navKey.currentState!.context).pop();
+        dialogDurum = false;
       }
     }
   }
