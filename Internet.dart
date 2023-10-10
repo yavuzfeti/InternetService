@@ -2,15 +2,10 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:kitx/Assets/Colors.dart';
+import 'package:kitx/Components/Themes.dart';
 import 'package:kitx/main.dart';
 
-//final navKey = GlobalKey<NavigatorState>();
-//navigatorKey: navKey,
-//connectivity_plus: ^3.0.3
-//internet_connection_checker: ^1.0.0+1
-//Internet.gecBaslat(1500);
-//Internet.baslat();
+// Internet.gecBaslat(SplashControl.splashSuresi+500);
 
 class Internet
 {
@@ -27,7 +22,7 @@ class Internet
     internet = await InternetConnectionChecker().hasConnection;
     dialog(internet);
   }
-
+  
   static void gecBaslat(int gecikme)
   {
     Future.delayed(Duration(milliseconds: gecikme),() {baslat();});
@@ -87,7 +82,7 @@ class Internet
                   ],
                 ),
               ),
-              backgroundColor: Colours.mainColor,
+              backgroundColor: Themes.mainColor,
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
